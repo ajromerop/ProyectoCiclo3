@@ -1,0 +1,14 @@
+1-npm init --yes
+2-npm install express --save
+node app.js (comando para ejecutar en consola)
+3-npm install -g nodemon
+Nos sirve para pintar las peticiones HTTP request que se solicitan a nuestro aplicación.
+4-npm i morgan --save
+Para realizar solicitudes de un servidor externo e impedir el bloqueo por CORS. Documentación oficial
+5-npm install cors --save
+6-npm install --save connect-history-api-fallback
+7-npm install -D @babel/core @babel/cli @babel/preset-env @babel/node
+8.Crear archivo .babelrc en la raíz del sistema y escribir en dicho archivo: { "presets": ["@babel/preset-env"] }
+9.Configurar Script en package.json "scripts": { "dev": "nodemon app.js", "devbabel": "nodemon app.js --exec babel-node" },
+10.Prueba tu servidor ejecutando: npm run devbabel
+11.Instalación Mongoose: npm install mongoose --save
