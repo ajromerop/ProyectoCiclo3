@@ -8,7 +8,9 @@ const app = express();
 
 //CONEXIÓN BD
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017/primerBd';
+//const url = 'mongodb://localhost:27017/registroBd';//mongodb+srv://root:<password>@cluster0.gyv7f.mongodb.net/test
+const url = 'mongodb+srv://root:toor@agendamiento.0ozrj.mongodb.net/registros?retryWrites=true&w=majority';
+             //mongodb+srv://root:<password>@agendamiento.0ozrj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const options = {useNewUrlParser: true, useUnifiedTopology: true};
 
 mongoose.connect(url, options).then(
@@ -31,7 +33,8 @@ app.get('/', function (req, res) {
 });
 
 //MIDDLEWARE PARA vue.js
-app.use('/api',require('./routes/primerBd'));
+//app.use('/api',require('./routes/primerBd' || './routes/registroBd' ));
+app.use('/api',require('./routes/registroBd'));
 const history = require('connect-history-api-fallback');
 app.use(history());
 app.use(express.static(path.join(__dirname, 'public')));

@@ -7,7 +7,7 @@ import PrimerBd from '../models/primerBd';
 //const PrimerBd = require('../models/primerBd');
 
 //AGREGAMOS UN REGISTRO (MODELO)
-router.post('/nuevo-registro', async(req,res)=>{
+router.post('/', async(req,res)=>{
     const body = req.body;
 
     try {
