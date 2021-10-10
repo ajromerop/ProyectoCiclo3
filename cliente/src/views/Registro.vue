@@ -38,6 +38,8 @@
             <input type="text" class="form-control my-2" placeholder="Ingrese id de paciente" v-model="registro.id_paciente">
             <input type="text" class="form-control my-2" placeholder="Ingrese nombre médico" v-model="registro.nombre_medico">
             <input type="text" class="form-control my-2" placeholder="Ingrese id de médico" v-model="registro.id_medico">
+            <b-datepicker type="datetime" class="form-control my-2" v-model="registro.fecha_consulta" lang="es" format="YYYY-MM-DD HH:mm a" placeholder="Ingrese fecha" confirm></b-datepicker>
+            <!-- <input type="time" class="form-control my-2" v-model="time" lang="es" format="HH-mm a" :time-picker-options="timePickerOptions" placeholder="Hora de consulta"> -->
             <b-button class="btn-success my-2" type="submit">Agregar</b-button>
             
 
@@ -50,6 +52,7 @@
             <input type="text" class="form-control my-2" placeholder="Ingrese id de paciente" v-model="registroEditar.id_paciente">
             <input type="text" class="form-control my-2" placeholder="Ingrese nombre médico" v-model="registroEditar.nombre_medico">
             <input type="text" class="form-control my-2" placeholder="Ingrese id de médico" v-model="registroEditar.id_medico">
+            <b-datepicker type="datetime" class="form-control my-2" v-model="registroEditar.fecha_consulta" lang="es" format="YYYY-MM-DD HH:mm a" placeholder="Ingrese fecha" confirm></b-datepicker>
             <b-button class="btn-success my-2" type="submit">Editar</b-button>
             <b-button class="my-2 mx-2" type="submit" @click="editar=false">Cancelar</b-button>
             
@@ -65,7 +68,7 @@
       <th scope="col">ID PACIENTE</th>
       <th scope="col">NOMBRE MEDICO</th>
       <th scope="col">ID MEDICO</th>
-      <!-- <th scope="col">FECHA CONSULTA</th> -->
+      <th scope="col">FECHA CONSULTA</th>
     </tr>
   </thead>
   <tbody>
@@ -75,9 +78,9 @@
       <td>{{item.id_paciente}}</td>
       <td>{{item.nombre_medico}}</td>
       <td>{{item.id_medico}}</td>
-      <!-- <td>{{item.fecha_consulta}}</td> -->
+      <td>{{item.fecha_consulta}}</td>
       <td>
-        <button class="btn-danger mx-2" @click="eliminarRegistro(item._id)">Eliminar</button>
+        <button class="btn-danger mx-2 my-2" @click="eliminarRegistro(item._id)">Eliminar</button>
         <button class="btn-warning mx-2" @click="activarEdicion(item._id)">Editar</button>
       </td>
     </tr>
@@ -90,9 +93,25 @@
 </template>
 
 <script>
+const DatePicker= require('vue2-datepicker');
+//import DatePicker from 'vue2-datepicker';
+//import 'vue2-datepicker/index.css';
 export default {
+  name:'App',
+  components:{
+    DatePicker
+  },
     data(){
         return{
+          // date:'',
+          time:'',
+          timePickerOption:{
+            start: '00:00',
+            step: '00:30',
+            end: '20:00',
+          },
+          datetime: '',
+          //range: '',
 
             registros:[],
 
@@ -102,7 +121,7 @@ export default {
             dismissCountDown: 0,
             //showDismissibleAlert: false,
 
-            registro:{nombre_paciente:"", id_paciente:"", nombre_medico:"", id_medico:""},//, fecha_consulta:"" 
+            registro:{nombre_paciente:"", id_paciente:"", nombre_medico:"", id_medico:"", fecha_consulta:""},//, fecha_consulta:"" 
             editar:false,
             registroEditar:{}
 
@@ -146,7 +165,7 @@ export default {
                 this.registro.id_paciente="";
                 this.registro.nombre_medico="";
                 this.registro.id_medico="";
-                //this.registro.fecha_consulta="";
+                this.registro.fecha_consulta="";
                 this.mensaje.color="success";
                 this.mensaje.texto="Registro Agregada";
                 this.showAlert();
@@ -215,6 +234,7 @@ export default {
             this.registros[index].id_paciente=res.data.id_paciente;
             this.registros[index].nombre_medico=res.data.nombre_medico;
             this.registros[index].id_medico=res.data.id_medico;
+            this.registros[index].fecha_consulta=res.data.fecha_consulta;
             this.mensaje.color="success";
             this.mensaje.texto="Registro editada";
             this.showAlert();
